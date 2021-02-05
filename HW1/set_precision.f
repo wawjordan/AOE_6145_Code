@@ -20,7 +20,7 @@ module set_precision
 
   private
 
-  public :: r4, r8, r16, rd, dp, Prec
+  public :: r4, r8, r16, rd, dp, prec
   public :: c8, c16, c32, cd
   public :: i2, i4, i8, id
 
@@ -30,7 +30,7 @@ module set_precision
   integer, parameter :: r16 = c_long_double
   integer, parameter :: dp  = r8
   integer, parameter :: rd  = r8
-  integer, parameter :: Prec  = r8
+  integer, parameter :: prec  = r8
 
 ! Complex
   integer, parameter :: c8  = c_float_complex
