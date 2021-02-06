@@ -1,7 +1,7 @@
 !============================== set_constants ================================80
 module set_constants
 
-  use set_precision, only : Prec
+  use set_precision, only : prec
 
   implicit none
 
@@ -10,18 +10,18 @@ module set_constants
   public :: zero, one, two, three, four, six
   public :: half, third, fourth, fifth, sixth, tenth
 
-  real(Prec), parameter :: zero   = 0.0_Prec
-  real(Prec), parameter :: tenth  = 0.1_Prec
-  real(Prec), parameter :: sixth  = 1.0_Prec/6.0_Prec
-  real(Prec), parameter :: fifth  = 0.2_Prec
-  real(Prec), parameter :: fourth = 0.25_Prec
-  real(Prec), parameter :: third  = 1.0_Prec/3.0_Prec
-  real(Prec), parameter :: half   = 0.5_Prec
-  real(Prec), parameter :: one    = 1.0_Prec
-  real(Prec), parameter :: two    = 2.0_Prec
-  real(Prec), parameter :: three  = 3.0_Prec
-  real(Prec), parameter :: four   = 4.0_Prec
-  real(Prec), parameter :: six    = 6.0_Prec
+  real(prec), parameter :: zero   = 0.0_prec
+  real(prec), parameter :: tenth  = 0.1_prec
+  real(prec), parameter :: sixth  = 1.0_prec/6.0_prec
+  real(prec), parameter :: fifth  = 0.2_prec
+  real(prec), parameter :: fourth = 0.25_prec
+  real(prec), parameter :: third  = 1.0_prec/3.0_prec
+  real(prec), parameter :: half   = 0.5_prec
+  real(prec), parameter :: one    = 1.0_prec
+  real(prec), parameter :: two    = 2.0_prec
+  real(prec), parameter :: three  = 3.0_prec
+  real(prec), parameter :: four   = 4.0_prec
+  real(prec), parameter :: six    = 6.0_prec
 
 end module set_constants
 !comment
