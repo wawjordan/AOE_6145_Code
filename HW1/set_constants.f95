@@ -9,6 +9,7 @@ module set_constants
 
   public :: zero, one, two, three, four, six
   public :: half, third, fourth, fifth, sixth, tenth
+  public :: pi, set_derived_constants
 
   real(prec), parameter :: zero   = 0.0_prec
   real(prec), parameter :: tenth  = 0.1_prec
@@ -22,6 +23,13 @@ module set_constants
   real(prec), parameter :: three  = 3.0_prec
   real(prec), parameter :: four   = 4.0_prec
   real(prec), parameter :: six    = 6.0_prec
+  real(prec), parameter :: pi     = 3.0_prec
+
+  contains
+    subroutine set_derived_constants
+      implicit none
+      pi = acos(-1.0_prec)
+    end subroutine set_derived_constants
 
 end module set_constants
 !comment
