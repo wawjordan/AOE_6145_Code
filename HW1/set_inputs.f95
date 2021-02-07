@@ -8,8 +8,9 @@ module set_inputs
 
   private
 
+  public :: set_derived_inputs
   public :: iq, iSS, max_newton_iter, newton_tol
-  public :: p0, T0, Astar
+  public :: p0, T0, Astar, g, gp1, gm1, R, a0, rho0, Aq, xq
 
   integer :: max_newton_iter = 20
   integer :: iq = 5
@@ -29,7 +30,7 @@ module set_inputs
   real(prec) :: xmin = -one
   real(prec) :: xmax = one
   real(prec), dimension(:), allocatable :: xq
-  real(prec), dimension(:), allocatable :: A
+  real(prec), dimension(:), allocatable :: Aq
 
   contains
   function area(xq)
@@ -42,31 +43,31 @@ module set_inputs
 
     implicit none
     integer :: i, i1, i2
-    reak(prec), external :: area
+    ! real(prec), external :: area
     i = 1
     i1 = 1
     i2 = iq
     allocate(xq(i1:iq))
-    allocate(A(i1:iq))
+    allocate(Aq(i1:iq))
     do i = i1,iq
-      xq(i) = xmin + i*(xmax-xmin)/iq
+      xq(i) = xmin + float(i-1)*(xmax-xmin)/float(iq-1)
     end do
     do i = i1,iq
-      A(i) = area(xq(i))
+      Aq(i) = area(xq(i))
     end do
     R = Ru/Mair
     gp1 = g + one
     gm1 = g - one
     a0 = sqrt(g*R*T0)
-    rho0 = p0/(R*T0)
+    rho0 = 1000.0_prec*p0/(R*T0)
 
-    write(*,*) 'R     = ', R, ' [J/(kmol*K)]'
-    write(*,*) 'gamma = ', g
-    write(*,*) 'a_0   = ', a0, ' [m/s]'
-    write(*,*) 'rho_0 = ', rho0, ' [kg/m^3]'
-    write(*,*) 'P_0   = ', p0, ' [kPa]'
-    write(*,*) 'T_0   = ', T0, ' [K]'
-    write(*,*) 'A*    = ', Astar, ' [m^2]'
+    write(*,'(A8,F20.14,A13)') 'R     = ', R, ' [J/(kmol*K)]'
+    write(*,'(A8,F20.14)') 'gamma = ', g
+    write(*,'(A8,F20.14,A6)') 'a_0   = ', a0, ' [m/s]'
+    write(*,'(A8,F20.14,A9)') 'rho_0 = ', rho0, ' [kg/m^3]'
+    write(*,'(A8,F20.14,A6)') 'P_0   = ', p0, ' [kPa]'
+    write(*,'(A8,F20.14,A4)') 'T_0   = ', T0, ' [K]'
+    write(*,'(A8,F20.14,A6)') 'A*    = ', Astar, ' [m^2]'
 
   end subroutine set_derived_inputs
 

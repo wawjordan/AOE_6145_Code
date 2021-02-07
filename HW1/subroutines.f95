@@ -5,14 +5,15 @@ module subroutines
 
   private
 
-  public newton_safe, f, df
+  public newton_safe
 
   contains
 
-  subroutine newton_safe( f, df, a, b )
+  subroutine newton_safe( f, df, a, b, x, xk, e)
 
     use set_precision, only : prec
-    use set_constants, only : half
+    use set_constants, only : half, one
+    use set_inputs
 
     implicit none
 
@@ -21,31 +22,30 @@ module subroutines
     real(prec), intent(in) :: a, b
     real(prec)             :: a2, b2
     real(prec), intent(out) :: x
-    real(prec), intent(out), dimension(max_newton_iter+1) :: xk = -99.9_prec
-    real(prec), intent(out), dimension(max_newton_iter) :: e = -99.9_prec
+    real(prec), intent(out), dimension(max_newton_iter+1) :: xk
+    real(prec), intent(out), dimension(max_newton_iter) :: e
 
     a2 = a
     b2 = b
     xk(1) = a2
     xk(2) = xk(1) - f(xk(1))/df(xk(1))
-    ea(1) = abs(xk(k)-xk(k-1))/abs(xk(k))
+    e(1) = abs(xk(k)-xk(k-1))/abs(xk(k))
     do k = 2, max_newton_iter
-      if (ea(k-1) < newton_tol).and.( k <= max_newton_iter ) then
+      if ( (e(k-1) < newton_tol).and.(k <= max_newton_iter) ) then
         goto 200  !exit iteration loop if converged
       else
         continue
       endif
       xk(k+1) = xk(k) - f(xk(k))/df(xk(k))
-      if ( xk(k+1) < a2 ).or.( xk(k+1) > b2) then
+      if ( (xk(k+1) < a2).or.(xk(k+1) > b2) ) then
         xk(k+1) = a2 + half*(b2-a2)
-        if ( sign(1,f(a2)) == sign(1,f(xk(k+1))) ) then
+        if ( sign(one,f(a2)) == sign(one,f(xk(k+1))) ) then
           a2 = xk(k+1)
         else
           b2 = xk(k+1)
         endif
       endif
       e(k) = abs(xk(k)-xk(k-1))/abs(xk(k))
-      k = k + 1
     end do
 
     200 continue

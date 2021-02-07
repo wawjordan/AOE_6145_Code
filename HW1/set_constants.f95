@@ -23,7 +23,7 @@ module set_constants
   real(prec), parameter :: three  = 3.0_prec
   real(prec), parameter :: four   = 4.0_prec
   real(prec), parameter :: six    = 6.0_prec
-  real(prec), parameter :: pi     = 3.0_prec
+  real(prec) :: pi     = 3.0_prec
 
   contains
     subroutine set_derived_constants

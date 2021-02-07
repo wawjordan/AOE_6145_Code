@@ -17,7 +17,7 @@ test_func.o
 set_constants.o : set_precision.o
 set_inputs.o : set_precision.o set_constants.o
 subroutines.o : set_precision.o set_constants.o set_inputs.o
-exact_q1d_type.o : set_precision.o set_constants.o set_inputs.o types.o
+exact_q1d_type.o : set_precision.o set_constants.o set_inputs.o subroutines.o
 test_func.o: set_precision.o set_constants.o set_inputs.o subroutines.o exact_q1d_type.o
 
 %.o: %.$(F_EXT)
