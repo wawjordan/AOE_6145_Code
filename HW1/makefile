@@ -9,8 +9,8 @@ a: \
 set_precision.o \
 set_constants.o \
 set_inputs.o \
-subroutines.f95 \
-exact_q1d_type.f95 \
+subroutines.o \
+exact_q1d_type.o \
 test_func.o
 		$(FC) $(FCFLAGS) $^ -o $@
 
