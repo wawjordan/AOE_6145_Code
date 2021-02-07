@@ -5,7 +5,7 @@ module subroutines
 
   private
 
-  public newton_safe
+  public newton_safe, f, df
 
   contains
 
