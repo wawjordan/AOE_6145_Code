@@ -2,7 +2,7 @@
 module set_inputs
 
   use set_precision, only : prec
-  use set_constants, only : zero, one, two, half
+  use set_constants, only : zero, one, two, half, pi
 
   implicit none
 
@@ -11,13 +11,13 @@ module set_inputs
   public :: iq, iSS, max_newton_iter, newton_tol
   public :: p0, T0, Astar
 
-  integer :: max_newton_iter
-  integer :: iq
-  integer :: iSS
-  real(prec) :: newton_tol
-  real(prec) :: p0
-  real(prec) :: T0
-  real(prec) :: Astar
+  integer :: max_newton_iter = 20
+  integer :: iq = 5
+  integer :: iSS = 1
+  real(prec) :: newton_tol = 1.0e-15_prec
+  real(prec) :: p0 = 300.0_prec
+  real(prec) :: T0 = 600.0_prec
+  real(prec) :: Astar = 0.2_prec
   real(prec) :: g = 1.4_prec
   real(prec) :: gp1 = zero
   real(prec) :: gm1 = zero
@@ -26,13 +26,34 @@ module set_inputs
   real(prec) :: R = zero
   real(prec) :: a0 = zero
   real(prec) :: rho0 = zero
+  real(prec) :: xmin = -one
+  real(prec) :: xmax = one
+  real(prec), dimension(:), allocatable :: xq
+  real(prec), dimension(:), allocatable :: A
 
   contains
+  function area(xq)
+    real(prec) :: area
+    real(prec), intent(in) :: xq
+    area = 0.2_prec + 0.4_prec*( one + sin(pi*(xq-0.5_prec)))
+  end function area
 
   subroutine set_derived_inputs
 
     implicit none
-
+    integer :: i, i1, i2
+    reak(prec), external :: area
+    i = 1
+    i1 = 1
+    i2 = iq
+    allocate(xq(i1:iq))
+    allocate(A(i1:iq))
+    do i = i1,iq
+      xq(i) = xmin + i*(xmax-xmin)/iq
+    end do
+    do i = i1,iq
+      A(i) = area(xq(i))
+    end do
     R = Ru/Mair
     gp1 = g + one
     gm1 = g - one
