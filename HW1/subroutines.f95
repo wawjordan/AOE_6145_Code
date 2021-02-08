@@ -1,4 +1,3 @@
-!=============================== subroutines =================================80
 module subroutines
 
   implicit none
@@ -9,6 +8,20 @@ module subroutines
 
   contains
 
+  !============================== newton_safe ================================80
+  !>
+  !! Description: Safe-guarded 1D Newton's method.
+  !!
+  !! Inputs:      f:    Single variable function f(x).
+  !!              df:   Derivative of f(x).
+  !!              a:    Beginning of bracketing interval.
+  !!              b:    End of bracketing interval.
+  !!
+  !! Outputs:     x:    Zero of f(x).
+  !!              xk:   Array of iterates.
+  !!              e:    Array of approximate relative iterative errors.
+  !<
+  !===========================================================================80
   subroutine newton_safe( f, df, a, b, x, xk, e)
 
     use set_precision, only : prec
@@ -55,6 +68,22 @@ module subroutines
   end subroutine newton_safe
 
 
+  !============================== newton_safe2 ===============================80
+  !>
+  !! Description: Safe-guarded 1D Newton's method, but with hard-coded input
+  !!              parameter 'A1' for function f(x) because I'm dumb.
+  !!
+  !! Inputs:      A1:   Area.
+  !!              f:    two variable function f(x,A1).
+  !!              df:   Derivative of f(x) w.r.t. x.
+  !!              a:    Beginning of bracketing interval.
+  !!              b:    End of bracketing interval.
+  !!
+  !! Outputs:     x:    Zero of f(x).
+  !!              xk:   Array of iterates.
+  !!              e:    Array of approximate relative iterative errors.
+  !<
+  !===========================================================================80
   subroutine newton_safe2( A1, f1, df1, a, b, x, xk, e)
 
     use set_precision, only : prec
@@ -111,6 +140,23 @@ module subroutines
 
   end subroutine newton_safe2
 
+  !============================== newton_safe3 ===============================80
+  !>
+  !! Description: Safe-guarded 1D Newton's method, but with hard-coded input
+  !!              parameter 'A1' and reduced memory overhead because I'm dumb
+  !!              and hard-coded array sizes in a previous version of the code.
+  !!
+  !! Inputs:      A1:   Area.
+  !!              f:    two variable function f(x,A1).
+  !!              df:   Derivative of f(x) w.r.t. x.
+  !!              a:    Beginning of bracketing interval.
+  !!              b:    End of bracketing interval.
+  !!
+  !! Outputs:     x:    Zero of f(x).
+  !!              xk:   Array of last two iterates.
+  !!              e:    approximate relative iterative error.
+  !<
+  !===========================================================================80
   subroutine newton_safe3( A1, f1, df1, a, b, x, xk, e)
 
     use set_precision, only : prec

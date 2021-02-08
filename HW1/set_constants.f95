@@ -1,4 +1,3 @@
-!============================== set_constants ================================80
 module set_constants
 
   use set_precision, only : prec
@@ -23,13 +22,21 @@ module set_constants
   real(prec), parameter :: three  = 3.0_prec
   real(prec), parameter :: four   = 4.0_prec
   real(prec), parameter :: six    = 6.0_prec
-  real(prec) :: pi     = 3.0_prec
+  real(prec)            :: pi     = 3.0_prec
 
   contains
+
+    !======================== set_derived_constants ==========================80
+    !>
+    !! Description: Sets derived quantities to specified precision.
+    !<
+    !=========================================================================80
     subroutine set_derived_constants
+
       implicit none
+
       pi = acos(-1.0_prec)
+
     end subroutine set_derived_constants
 
 end module set_constants
-!comment

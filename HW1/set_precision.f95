@@ -7,8 +7,6 @@
 !! The i* naming convention means integer and id is integer_default.
 !! * == number of bytes, the defaults are all double precision
 !<
-! FIXME: use a #ifdef to decide between SINGLE, DOUBLE, and QUAD defaults
-!
 !=============================================================================80
 module set_precision
 

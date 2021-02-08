@@ -5,7 +5,7 @@ FC = gfortran
 FCFLAGS = -O3
 EXEC = a
 # Object Files for build
-a: \
+a.out: \
 set_precision.o \
 set_constants.o \
 set_inputs.o \
