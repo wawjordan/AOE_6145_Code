@@ -9,13 +9,14 @@ module set_inputs
   private
 
   public :: set_derived_inputs
-  public :: iq, iSS, max_newton_iter, newton_tol
+  public :: iq, iSS, max_newton_iter, newton_tol, eps
   public :: p0, T0, Astar, g, gp1, gm1, R, a0, rho0, Aq, xq
 
   integer :: max_newton_iter = 20
   integer :: iq = 5
   integer :: iSS = 1
   real(prec) :: newton_tol = 1.0e-15_prec
+  real(prec) :: eps = 1.0e-3_prec
   real(prec) :: p0 = 300.0_prec
   real(prec) :: T0 = 600.0_prec
   real(prec) :: Astar = 0.2_prec

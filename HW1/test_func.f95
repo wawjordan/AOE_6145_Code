@@ -16,7 +16,7 @@ program test_func
   ! x, A, M, rho, u, p
   call allocate_exact_q1d(soln)
 
-
+  call solve_exact_q1d(soln)
   write(*,*) '|    x   |    A    |         M         |        rho        |         u        |         p        |'
   do i = 1,iq
     write(*,'(F9.4,F9.4,F20.14,F20.14,F20.14,F20.14)') xq(i), Aq(i), soln%M(i), soln%rho(i), soln%u(i), soln%p(i)
