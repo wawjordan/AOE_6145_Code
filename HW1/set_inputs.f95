@@ -7,13 +7,13 @@ module set_inputs
 
   private
 
-  public :: set_derived_inputs
+  public :: set_derived_inputs, read_in
   public :: iq, iSS, max_newton_iter, newton_tol, eps
   public :: p0, T0, Astar, g, gp1, gm1, R, a0, rho0, Aq, xq
 
   integer :: max_newton_iter = 20
-  integer :: iq = 15
-  integer :: iSS = 0
+  integer :: iq = 5
+  integer :: iSS = 1
 
   real(prec) :: newton_tol = 1.0e-15_prec
   real(prec) :: eps        = 1.0e-3_prec
@@ -34,6 +34,67 @@ module set_inputs
   real(prec), dimension(:), allocatable :: Aq
 
   contains
+
+  !================================ read_in ==================================80
+  !>
+  !! Description: Queries user for input data.
+  !<
+  !===========================================================================80
+  subroutine read_in
+    implicit none
+
+    real(prec) :: p0_in
+    real(prec) :: T0_in
+    integer :: is_supersonic
+    integer :: num_points
+
+    write(*,*) 'Enter stagnation conditions:'
+    write(*,*) 'P_0 (kPa) : '
+    read (*,*) p0_in
+    if (p0_in <= zero) then
+      write(*,*) 'Warning: non-physical stagnation pressure specified'
+      write(*,'(A27,G10.5,A6)') 'Using default value: P_0 = ', p0, ' [kPa]'
+    else
+      write (*,'(A6,G10.5,A6)') 'P_0 = ', p0_in, ' [kPa]'
+      p0 = p0_in
+    endif
+    write(*,*) 'T_0 (K) : '
+    read (*,*) T0_in
+    if (p0_in <= zero) then
+      write(*,*) 'Warning: non-physical stagnation temperature specified'
+      write(*,'(A27,G10.5,A4)') 'Using default value: T_0 = ', T0, ' [K]'
+    else
+      write (*,'(A6,G10.5,A4)') 'T_0 = ', T0_in, ' [K]'
+      T0 = T0_in
+    endif
+
+    write(*,*) 'Enter number of query points: '
+    read (*,*) num_points
+    if (num_points <= 0) then
+      write(*,*) 'Warning: number of points must be positive integer'
+      write(*,'(A19,I3)') 'Using default: N = ', iq
+    elseif (num_points > 100) then
+      write(*,*) 'Warning: number of points must be less than 100'
+      write(*,'(A19,I3)') 'Using default: N = ', iq
+    else
+      write (*,'(A4,I3)') 'N = ', num_points
+      iq = num_points
+    endif
+
+    write(*,*) 'Supersonic flow? (1 or 0): '
+    read (*,*) is_supersonic
+    if ((is_supersonic /= 0).and.(is_supersonic /= 1)) then
+      write(*,*) 'Warning: flow type must be either 0 or 1'
+      write(*,*) 'Using default:  1 (supersonic)'
+    elseif (is_supersonic == 0) then
+      write (*,*) 'subsonic flow selected'
+      iSS = is_supersonic
+    elseif (is_supersonic == 1) then
+      write (*,*) 'supersonic flow selected'
+      iSS = is_supersonic
+    endif
+
+  end subroutine read_in
 
   !=================================== area ==================================80
   !>
