@@ -13,7 +13,7 @@ program test_func
   type(exact_q1d_t) :: soln
 
   call set_derived_constants
-  call read_in
+  ! call read_in
   call set_derived_inputs
   ! x, A, M, rho, u, p
   call allocate_exact_q1d(soln)
