@@ -45,11 +45,7 @@ module subroutines
     ! xk(2) = b2
     e(1) = abs(xk(2)-xk(1))/abs(xk(2))
     do k = 2, max_newton_iter
-      if (e(k-1) < newton_tol) then
-        goto 200  !exit iteration loop if converged
-      else
-        continue
-      endif
+      if (e(k-1) < newton_tol) exit
       xk(k+1) = xk(k) - f(xk(k))/df(xk(k))
       if ( (xk(k+1) < a2).or.(xk(k+1) > b2) ) then
         xk(k+1) = a2 + half*(b2-a2)
@@ -62,7 +58,6 @@ module subroutines
       e(k) = abs(xk(k)-xk(k-1))/abs(xk(k))
     end do
 
-    200 continue
     x = xk(k)
 
   end subroutine newton_safe
@@ -118,11 +113,7 @@ module subroutines
 
     e(1) = abs(xk(2)-xk(1))/abs(xk(2))
     do k = 2, max_newton_iter
-      if (e(k-1) < newton_tol) then
-        goto 200  !exit iteration loop if converged
-      else
-        continue
-      endif
+      if (e(k-1) < newton_tol) exit
       xk(k+1) = xk(k) - f1(xk(k),A1)/df1(xk(k),A1)
       if ( (xk(k+1) < a2).or.(xk(k+1) > b2) ) then
         xk(k+1) = a2 + half*(b2-a2)
@@ -135,7 +126,6 @@ module subroutines
       e(k) = abs(xk(k)-xk(k-1))/abs(xk(k))
     end do
 
-    200 continue
     x = xk(k)
 
   end subroutine newton_safe2
@@ -192,11 +182,7 @@ module subroutines
 
     e = abs(xk(2)-xk(1))/abs(xk(2))
     do k = 2, max_newton_iter
-      if (e < newton_tol) then
-        goto 200  !exit iteration loop if converged
-      else
-        continue
-      endif
+      if (e < newton_tol) exit
       x_new = xk(2) - f1(xk(2),A1)/df1(xk(2),A1)
       if ( (x_new < a2).or.(x_new > b2) ) then
         x_new = a2 + half*(b2-a2)
@@ -211,7 +197,6 @@ module subroutines
       e = abs(xk(2)-xk(1))/abs(xk(2))
     end do
 
-    200 continue
     x = xk(2)
 
   end subroutine newton_safe3
