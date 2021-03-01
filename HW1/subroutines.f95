@@ -42,8 +42,7 @@ module subroutines
     b2 = b
     xk(1) = a2
     xk(2) = xk(1) - f(xk(1))/df(xk(1))
-    ! xk(2) = b2
-    e(1) = abs(xk(2)-xk(1))/abs(xk(2))
+    e(1) = abs(f(xk(2)))/abs(f(xk(1)))
     do k = 2, max_newton_iter
       if (e(k-1) < newton_tol) exit
       xk(k+1) = xk(k) - f(xk(k))/df(xk(k))
@@ -55,7 +54,7 @@ module subroutines
           b2 = xk(k+1)
         endif
       endif
-      e(k) = abs(xk(k)-xk(k-1))/abs(xk(k))
+      e(k) = abs(f(xk(k)))/abs(f(xk(1)))
     end do
 
     x = xk(k)
@@ -111,7 +110,7 @@ module subroutines
       endif
     endif
 
-    e(1) = abs(xk(2)-xk(1))/abs(xk(2))
+    e(1) = abs(f1(xk(2),A1))/abs(f1(xk(1),A1))
     do k = 2, max_newton_iter
       if (e(k-1) < newton_tol) exit
       xk(k+1) = xk(k) - f1(xk(k),A1)/df1(xk(k),A1)
@@ -123,7 +122,7 @@ module subroutines
           b2 = xk(k+1)
         endif
       endif
-      e(k) = abs(xk(k)-xk(k-1))/abs(xk(k))
+      e(k) = abs(f1(xk(k),A1))/abs(f1(xk(1),A1))
     end do
 
     x = xk(k)
