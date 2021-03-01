@@ -85,7 +85,7 @@ contains
 
     soln%T = T0/( 1 + half*gm1*soln%M**2 )
     soln%p = p0/( 1 + half*gm1*soln%M**2 )**(g/gm1)
-    soln%rho = soln%p/(R*soln%T)
+    soln%rho = 1000.0_prec*soln%p/(R*soln%T)
     soln%u = soln%M*sqrt(g*R*soln%T)
 
   end subroutine calc_variables
